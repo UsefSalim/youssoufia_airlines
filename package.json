@@ -1,0 +1,33 @@
+{
+  "name": "youssoufia_airlines",
+  "version": "1.0.0",
+  "description": "reservation de vole en ligne ",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UsefSalim/youssoufia_airlines.git"
+  },
+  "keywords": [
+    "NodeJs",
+    "ExpressJs",
+    "Sequelize",
+    "ejs"
+  ],
+  "author": "Salim Youssef",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UsefSalim/youssoufia_airlines/issues"
+  },
+  "homepage": "https://github.com/UsefSalim/youssoufia_airlines#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "sequelize": "^6.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
