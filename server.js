@@ -1,18 +1,16 @@
 const express = require('express');
 const app = express()
-const clientModel = require('./models').clientModel
+const bodyParser = require('body-parser');
 const clientRoutes = require('./routes/client.routes.js')
 
-// Test Create data 
 
-// clientModel.create({
-//   'nom': 'testNom',
-//   'prenom': 'testPrenom',
-//   'email': 'testemail@mail.com'
-// })
+// *** Middleware ***//
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 // *** Routes *** //
-// app.get('/',)
 
 app.use('/client', clientRoutes)
 

@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { getAllClient } = require('../controllers/client.controller')
+const { addClient, getAllClient } = require('../controllers/client.controller')
 
 router.get('/', getAllClient)
+router.post('/addclient', addClient)
 
 
 

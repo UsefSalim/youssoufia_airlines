@@ -1,1 +1,6 @@
 sequelize-cli ???
+sequelize init  
+sequelize model:create --name clientModel --attributes nom:string,prenom:string,email:string --force
+npx sequelize-cli db:migrate  
+
+ https://www.youtube.com/watch?v=VDgXAw7VynQ
