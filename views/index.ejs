@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Page D'accueil</h1>
+  <%= name %>
+  <form action="/offers" method="POST">
+    <div class="container">
+      <input class="search-input" name="air_d" type="text" placeholder="aeroport depart" required />
+      <div class="suggestions">
+      </div>
+    </div>
+    <div class="container">
+      <input class="search-input2" name="air_a" type="text" placeholder="aeroport ariver" required />
+      <div class="suggestions2">
+      </div>
+    </div>
+    <input type="date" id="start" name="date_d" required>
+    <input type="date" id="start" name="date_r" required>
+    <button type="submit">search</button>
+  </form>
+
+</body>
+
+<script src="js/search.js"></script>
+
+</html>
