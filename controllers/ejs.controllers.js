@@ -49,8 +49,8 @@ exports.singleoffre = async (req, res) => {
   }
 };
 exports.validation = (req, res) => {
-  console.log('--------------------');
-  console.log(req.session);
+  // console.log('--------------------');
+  // console.log(req.session);
   res.render('validation', {
     user: req.session.user || '',
     offre: req.session.offre || '',

@@ -38,6 +38,7 @@ exports.postRegister = async (req, res) => {
   registerClient.password = hashdPassword;
   try {
     if (!ifMail && !error) {
+      console.log(req.session);
       const addClient = await registerClient.save();
       req.flash('success_msg', 'You are now registered and can log in');
       addClient && res.redirect('login');
