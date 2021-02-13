@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
-const passport = require('passport');
+// const passport = require('passport');
 
 const Client = require('../models/client');
-const { RegisterValidations } = require('../validations/auth.validations');
+const {
+  RegisterValidations,
+  loginValidation,
+} = require('../validations/auth.validations');
 
 /* ! @Route  : GET => /register
      Desc    : render the register page 
@@ -49,7 +52,7 @@ exports.postRegister = async (req, res) => {
      @Access : Pubic
 */
 exports.getLogin = (req, res) => {
-  res.render('login');
+  res.render('login', { err: '' });
 };
 
 /* ! @Route  : POST => /register
@@ -58,16 +61,36 @@ exports.getLogin = (req, res) => {
 */
 
 exports.postLogin = async (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/offers',
-    failureRedirect: '/login',
-    failureFlash: true,
-  })(req, res, next);
+  try {
+    const { error } = loginValidation(req.body);
+    error && res.render('login', { err: error });
+    // verification if mail exist
+    const client = await Client.findOne({ where: { email: req.body.email } });
+    if (!client) {
+      res.render('login', { err: 'email ou mots de pass incorrect' });
+    }
+    // verif password
+    bcrypt.compare(req.body.password, client.password, (err, data) => {
+      if (!err) {
+        req.session.isLoggedIn = true;
+        req.session.user = client;
+        return req.session.save((err) => {
+          !err
+            ? res.redirect('validation')
+            : console.log(`errredirect mablanch ${err}`);
+        });
+      }
+      res.render('login', { err: 'email ou mots de pass incorrect' });
+    });
+  } catch (error) {
+    res.render('index');
+  }
 };
 
 // Logout
 exports.logout = (req, res) => {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.redirect('/login');
+  req.session.destroy((err) => {
+    console.log(err);
+    res.redirect('/');
+  });
 };

@@ -1,22 +1,25 @@
 require('dotenv').config({ path: './config/.env' });
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
 const morgan = require('morgan');
+const csrf = require('csurf');
 const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const passport = require('passport');
+const bodyParser = require('body-parser');
+const Client = require('./models/client');
 
 const app = express();
-const bodyParser = require('body-parser');
+
 const ejsRoutes = require('./routes/ejs.routes');
 const authRoutes = require('./routes/auth.routes');
 
-// Passport Config
-require('./config/passport')(passport);
 require('./config/db');
 
+const csrfProtection = csrf();
 // *** MIDDLEWARES *** //
 // ejs
-app.use(express.static('public'));
+app.use(expressLayouts);
 app.use('/js', express.static(`${__dirname}public/js`));
 app.use('/css', express.static(`${__dirname}public/css`));
 app.set('view engine', 'ejs');
@@ -24,40 +27,45 @@ app.set('view engine', 'ejs');
 // body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // morgan
-process.env.NODE_ENV === '' && app.use(morgan('dev'));
+process.env.NODE_ENV === '' && app.use(morgan('tiny'));
 
-// express session
 app.use(
   session({
-    secret: process.env.SECRET_SESSION,
-    resave: true,
-    saveUninitialized: true,
-    // cookie: { secure: true },
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
   })
 );
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-// connect flash
+app.use(csrfProtection);
 app.use(flash());
 
-// Global variables
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.id = '';
-  next();
+  if (!req.session.user) {
+    return next();
+  }
+  // console.log(req.session);
+  Client.findOne({ where: { id: req.session.user.id } })
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
 });
 
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 // ! *** Routes *** ! //
 
 app.use('/', ejsRoutes);
 app.use('/', authRoutes);
+
+// *** TESTS  *** ///
 
 const PORT = process.env.PORT || 5000;
 

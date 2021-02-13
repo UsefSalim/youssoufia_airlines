@@ -1,17 +1,30 @@
-<h1>Offre.ejs</h1>
-</body>
+<h1>Offre</h1>
 <% if (offre !== '') { %>
 <ul>
-  <% offre.forEach((offre)=>{ %>
+
   <li> <%= offre.prix %> </li>
   <li> <%= offre.date_depart %> </li>
   <li> <%= offre.date_retour %> </li>
   <li> <%= offre.aeroport_depart %> </li>
   <li> <%= offre.aeroport_arriver %> </li>
-  <a href="offre/<%= offre.id %>">choisir</a>
+
   <hr>
-  <% }); %>
+
   <% } %>
 
 </ul>
-<a href="logout" class="btn btn-secondary">Logout</a>
+
+<h1>User</h1>
+<% if (user !== '') { %>
+<ul>
+
+  <li> <%= user.name %> </li>
+  <li> <%= user.email %> </li>
+  <li> <%= user.number %> </li>
+
+
+  <hr>
+
+  <% } %>
+
+</ul>

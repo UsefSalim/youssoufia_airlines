@@ -31,8 +31,30 @@ exports.searchOffres = async (req, res) => {
     res.render(`error server ${error}`);
   }
 };
-exports.dashboard = async (req, res) => {
-  res.render('dashboard');
+
+exports.singleoffre = async (req, res) => {
+  try {
+    const singleOffre = await offre.findOne({ where: { id: req.params.id } });
+    if (singleOffre) {
+      req.session.offre = singleOffre;
+      return req.session.save((err) => {
+        !err
+          ? res.render(`singleoffre`, { offre: singleOffre })
+          : console.log(`errredirect mablanch ${err}`);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.render(`singleoffre`, { offre: singleOffre });
+  }
+};
+exports.validation = (req, res) => {
+  console.log('--------------------');
+  console.log(req.session);
+  res.render('validation', {
+    user: req.session.user || '',
+    offre: req.session.offre || '',
+  });
 };
 const parseDate = (date) => {
   const words = date.split('-');
