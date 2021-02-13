@@ -11,7 +11,7 @@
 <body>
   <h1>Offre.ejs</h1>
 </body>
-<% if (offre) { %>
+<% if (offre !== '') { %>
 <ul>
   <% offre.forEach((user)=>{ %>
   <li> <%= user.prix %> </li>
@@ -22,6 +22,9 @@
   <hr>
   <% }); %>
   <% } %>
+
 </ul>
+<a href="logout" class="btn btn-secondary">Logout</a>
+
 
 </html>

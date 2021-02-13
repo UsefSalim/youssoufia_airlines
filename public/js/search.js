@@ -11,61 +11,55 @@ const countries = [
   { name: 'Laâyoune' },
   { name: 'Ouarzazate' },
   { name: 'Essaouira' },
-  { name: 'Al Hoceima' }
-]
-
+  { name: 'Al Hoceima' },
+];
 
 const searchInput = document.querySelector('.search-input');
 const searchInput2 = document.querySelector('.search-input2');
 const suggestionsPanel = document.querySelector('.suggestions');
 const suggestionsPanel2 = document.querySelector('.suggestions2');
 
-
-
-
-searchInput.addEventListener('keyup', function () {
+searchInput.addEventListener('keyup', () => {
   const input = searchInput.value;
   suggestionsPanel.innerHTML = '';
-  const suggestions = countries.filter(function (country) {
-    return country.name.toLowerCase().startsWith(input);
-  });
-  suggestions.forEach(function (suggested) {
+  const suggestions = countries.filter((country) =>
+    country.name.toLowerCase().startsWith(input)
+  );
+  suggestions.forEach((suggested) => {
     const div = document.createElement('div');
-    div.setAttribute('class', `air-d`)
+    div.setAttribute('class', `air-d`);
     div.innerHTML = suggested.name;
     suggestionsPanel.appendChild(div);
-     document.querySelectorAll('.air-d').forEach(item => {
-      item.addEventListener('click', e => {
-        //  const valeur = e.target.innerHTML
-         searchInput.value =e.target.innerHTML
-         suggestionsPanel.innerHTML = ''
-      })
-    })
-    
+    document.querySelectorAll('.air-d').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        searchInput.value = e.target.innerHTML;
+        suggestionsPanel.innerHTML = '';
+      });
+    });
   });
   if (input === '') {
     suggestionsPanel.innerHTML = '';
   }
-})
-searchInput2.addEventListener('keyup', function () {
+});
+searchInput2.addEventListener('keyup', () => {
   const input = searchInput2.value;
   suggestionsPanel2.innerHTML = '';
-  const suggestions = countries.filter(function (country) {
-    return country.name.toLowerCase().startsWith(input);
-  });
-  suggestions.forEach(function (suggested) {
+  const suggestions = countries.filter((country) =>
+    country.name.toLowerCase().startsWith(input)
+  );
+  suggestions.forEach((suggested) => {
     const div = document.createElement('div');
-    div.setAttribute('class', `air-a`)
+    div.setAttribute('class', `air-a`);
     div.innerHTML = suggested.name;
     suggestionsPanel2.appendChild(div);
-    document.querySelectorAll('.air-a').forEach(item => {
-      item.addEventListener('click', e => {
-         searchInput2.value =e.target.innerHTML
-         suggestionsPanel2.innerHTML = ''
-      })
-    })
+    document.querySelectorAll('.air-a').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        searchInput2.value = e.target.innerHTML;
+        suggestionsPanel2.innerHTML = '';
+      });
+    });
   });
   if (input === '') {
     suggestionsPanel2.innerHTML = '';
   }
-})
+});

@@ -1,10 +1,19 @@
-const express = require('express')
-const router = express.Router()
-const {pageAccueil,searchOffres} = require('../controllers/ejs.controllers')
+const express = require('express');
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-router.get('/',pageAccueil)
+const router = express.Router();
+const { pageAccueil, searchOffres } = require('../controllers/ejs.controllers');
 
-router.post('/offers',searchOffres)
+/* ! @Route  : GET => /
+     Desc    : render to home page
+     @Access : Pubic
+*/
+router.get('/', forwardAuthenticated, pageAccueil);
 
+/* ! @Route  : GET => /offers
+     Desc    : render all offers whide conditions
+     @Access : Pubic
+*/
+router.post('/offers', searchOffres);
 
-module.exports = router 
+module.exports = router;
