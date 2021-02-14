@@ -12,6 +12,9 @@ const {
      @Access : Pubic
 */
 exports.getRegister = (req, res) => {
+  if (req.session.isLoggedIn) {
+    return res.redirect('/validation');
+  }
   res.render('register', { data: req.doby, err: '' });
 };
 
@@ -53,6 +56,9 @@ exports.postRegister = async (req, res) => {
      @Access : Pubic
 */
 exports.getLogin = (req, res) => {
+  if (req.session.isLoggedIn) {
+    return res.redirect('/validation');
+  }
   res.render('login', { err: '' });
 };
 
@@ -61,7 +67,7 @@ exports.getLogin = (req, res) => {
      @Access : Pubic
 */
 
-exports.postLogin = async (req, res, next) => {
+exports.postLogin = async (req, res) => {
   try {
     const { error } = loginValidation(req.body);
     error && res.render('login', { err: error });

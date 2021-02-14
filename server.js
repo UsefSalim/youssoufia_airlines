@@ -65,6 +65,10 @@ app.use((req, res, next) => {
 app.use('/', ejsRoutes);
 app.use('/', authRoutes);
 
+app.use((req, res) => {
+  res.status(404).render('404');
+});
+
 // *** TESTS  *** ///
 
 const PORT = process.env.PORT || 5000;

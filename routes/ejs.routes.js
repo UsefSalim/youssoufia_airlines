@@ -22,8 +22,16 @@ router.get('/', pageAccueil);
 */
 router.post('/offers', searchOffres);
 
+/* ! @Route  : GET => /offer/:idoffre
+     Desc    : render single offre 
+     @Access : Pubic
+*/
 router.get('/offre/:id', singleoffre);
 
+/* ! @Route  : GET => /validation
+     Desc    : render offre + user informations
+     @Access : private
+*/
 router.get('/validation', isAuth, validation);
 
 module.exports = router;

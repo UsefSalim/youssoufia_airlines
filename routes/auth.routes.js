@@ -33,6 +33,10 @@ router.get('/login', getLogin);
 */
 router.post('/login', postLogin);
 
+/* ! @Route  : GET => /login
+     Desc    : log a user 
+     @Access : Pubic
+*/
 router.get('/logout', logout);
 
 module.exports = router;
