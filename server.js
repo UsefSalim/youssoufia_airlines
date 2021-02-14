@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const path = require('path');
 const Client = require('./models/client');
 
 const app = express();
@@ -20,8 +21,7 @@ const csrfProtection = csrf();
 // *** MIDDLEWARES *** //
 // ejs
 app.use(expressLayouts);
-app.use('/js', express.static(`${__dirname}public/js`));
-app.use('/css', express.static(`${__dirname}public/css`));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 // body-parser
