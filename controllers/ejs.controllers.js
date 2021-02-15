@@ -5,7 +5,7 @@ const offre = require('../models/offre.model');
      @Access : Pubic
 */
 exports.pageAccueil = (req, res) => {
-  res.render('index', { name: '' });
+  res.render('index', { ifLog: req.session.user || '' });
 };
 
 /* ! @Route  : GET => /offers
@@ -27,7 +27,7 @@ exports.searchOffres = async (req, res) => {
     req.session.nPlace = place;
     req.session.save();
     if (result) {
-      res.render('offre', { offre: result });
+      res.render('offre', { offre: result, ifLog: req.session.user || '' });
     }
   } catch (error) {
     res.render(`error server ${error}`);
@@ -41,13 +41,19 @@ exports.singleoffre = async (req, res) => {
       req.session.offre = singleOffre;
       return req.session.save((err) => {
         !err
-          ? res.render(`singleoffre`, { offre: singleOffre })
+          ? res.render(`singleoffre`, {
+              offre: singleOffre,
+              ifLog: req.session.user || '',
+            })
           : console.log(`errredirect mablanch ${err}`);
       });
     }
   } catch (error) {
     console.log(error);
-    res.render(`singleoffre`, { offre: singleOffre });
+    res.render(`singleoffre`, {
+      offre: singleOffre,
+      ifLog: req.session.user || '',
+    });
   }
 };
 exports.validation = (req, res) => {
@@ -57,6 +63,7 @@ exports.validation = (req, res) => {
     user: req.session.user || '',
     offre: req.session.offre || '',
     nplace: req.session.nPlace || '',
+    ifLog: req.session.user || '',
   });
 };
 exports.payment = async (req, res) => {
@@ -70,11 +77,15 @@ exports.payment = async (req, res) => {
       { place: newNumberPlace },
       { where: { id: req.session.offre.id } }
     );
+    req.flash(
+      'success_msg',
+      'votre commande est bien prise en compte vous aller recevoir un mail de confirmation '
+    );
     if (offreUpdate) {
-      res.render('index', { message: 'votre offre est bien valider' });
+      res.redirect('/');
     }
   } catch (error) {
-    res.render('404');
+    res.redirect('404');
   }
 };
 const parseDate = (date) => {

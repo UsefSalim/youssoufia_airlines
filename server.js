@@ -59,6 +59,9 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   next();
@@ -77,5 +80,5 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`server connected on port : localhost:  ${PORT}`);
+  console.log(`server connected on port : localhost: ${PORT}`);
 });

@@ -15,7 +15,11 @@ exports.getRegister = (req, res) => {
   if (req.session.isLoggedIn) {
     return res.redirect('/validation');
   }
-  res.render('register', { data: req.doby, err: '' });
+  res.render('register', {
+    data: req.doby,
+    err: '',
+    ifLog: req.session.user || '',
+  });
 };
 
 /* ! @Route  : POST => /register
@@ -41,7 +45,7 @@ exports.postRegister = async (req, res) => {
   registerClient.password = hashdPassword;
   try {
     if (!ifMail && !error) {
-      console.log(req.session);
+      // console.log(req.session);
       const addClient = await registerClient.save();
       req.flash('success_msg', 'You are now registered and can log in');
       addClient && res.redirect('login');
@@ -59,7 +63,7 @@ exports.getLogin = (req, res) => {
   if (req.session.isLoggedIn) {
     return res.redirect('/validation');
   }
-  res.render('login', { err: '' });
+  res.render('login', { err: '', ifLog: req.session.user || '' });
 };
 
 /* ! @Route  : POST => /register

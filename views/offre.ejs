@@ -1,19 +1,22 @@
-<h1>Offre.ejs</h1>
-</body>
-<% if (offre !== '') { %>
-<ul>
-  <% offre.forEach((offre)=>{ %>
-  <li> <%= offre.prix %> </li>
-  <li> <%= offre.date_depart %> </li>
-  <li> <%= offre.date_retour %> </li>
-  <li> <%= offre.aeroport_depart %> </li>
-  <li> <%= offre.aeroport_arriver %> </li>
-  <li> <%= offre.airline %> </li>
-  <li> <%= offre.place %> </li>
-  <a href="offre/<%= offre.id %>">choisir</a>
-  <hr>
-  <% }); %>
-  <% } %>
+<div class="container mt-5">
+  <h1>Offre disponible</h1>
+  <% if (offre !== '') { %>
+  <div class="d-flex justify-content-between flex-wrap">
+    <% offre.forEach((offre)=>{ %>
 
-</ul>
-<a href="logout" class="btn btn-secondary">Logout</a>
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header"> Airline : <%= offre.airline %></div>
+      <div class="card-body">
+        <h4 class="card-title">Prix: <%= offre.prix %> DH</h4>
+        <p class="card-text">Date Depart : <%= offre.date_depart %> </p>
+        <p class="card-text">Date Retour : <%= offre.date_retour %> </p>
+        <p class="card-text">Aeroport Depart : <%= offre.aeroport_depart %></p>
+        <p class="card-text">Aeroport Ariver :<%= offre.aeroport_arriver %> </p>
+        <a href="offre/<%= offre.id %>" class="btn btn-dark">choisir</a>
+      </div>
+    </div>
+
+    <% }); %>
+  </div>
+  <% } %>
+</div>

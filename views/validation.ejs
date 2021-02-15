@@ -1,35 +1,20 @@
-<h1>Offre</h1>
-<% if (offre !== '') { %>
-<ul>
-
-  <li> <%= offre.prix %> </li>
-  <li> <%= offre.date_depart %> </li>
-  <li> <%= offre.date_retour %> </li>
-  <li> <%= offre.aeroport_depart %> </li>
-  <li> <%= offre.aeroport_arriver %> </li>
-  <li> <%= offre.airline %> </li>
+<div class="container mt-5">
 
 
-  <hr>
-
+  <% if (offre !== '') { %>
+  <div class="jumbotron">
+    <h1 class="display-3">Airline : <%= offre.airline %> | Prix : <%= offre.prix %> </h1>
+    <p class="lead">Aeroport Depart : <%= offre.aeroport_depart %> | Aeroport Arriver : <%= offre.aeroport_arriver %>
+    </p>
+    <hr class="my-4">
+    <p class="lead">Full Name : <%= user.name %> | Email : <%= user.email %>
+    </p>
+    <hr class="my-4">
+    <p>Date Depart : <%= offre.date_depart %> | Dare Retour : <%= offre.date_retour %> || Nombre de place <%= nplace %>
+      Places</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/payment" role="button">Valider l'offre</a>
+    </p>
+  </div>
   <% } %>
-
-</ul>
-
-<h1>User</h1>
-<% if (user !== '') { %>
-<ul>
-
-  <li> <%= user.name %> </li>
-  <li> <%= user.email %> </li>
-  <li> <%= user.number %> </li>
-  <li> <%= nplace %> </li>
-
-
-  <hr>
-
-  <% } %>
-
-</ul>
-
-<a href="/payment">payer</a>
+</div>

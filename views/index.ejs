@@ -1,27 +1,23 @@
-<a href="register" class="btn btn-primary btn-block mb-2">Register</a>
-<a href="login" class="btn btn-secondary btn-block">Login</a>
-<a href="logout" class="btn btn-secondary btn-block">logout</a>
-<h1>Page D'accueil</h1>
+<%- include('./messages/messages')%>
 
-<form action="/offers" method="POST">
+<div class="main ">
 
-  <div class="container">
-    <input class="search-input" name="air_d" type="text" placeholder="aeroport depart" required />
-    <div class="suggestions">
-    </div>
-  </div>
-  <div class="container">
-    <input class="search-input2" name="air_a" type="text" placeholder="aeroport ariver" required />
-    <div class="suggestions2">
-    </div>
-  </div>
-  <input type="date" id="start" name="date_d" required>
-  <input type="date" id="start" name="date_r" required>
-  <input type="number" name="place" id="place">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-  <button type="submit">search</button>
-</form>
-
-
-
+  <form class="row main-2 bg-primary opacity-1" action="/offers" method="POST">
+    <span>
+      <input class="search search-input form-label" name="air_d" type="text" placeholder="aeroport depart" required />
+      <div class="sug suggestions">
+      </div>
+    </span>
+    <span>
+      <input class="search search-input2 form-label" name="air_a" type="text" placeholder="aeroport ariver" required />
+      <div class="sug suggestions2">
+      </div>
+    </span>
+    <input class="form-label" type="date" id="start" name="date_d" required>
+    <input class="form-label" type="date" id="start" name="date_r" required>
+    <input class="form-label" type="number" name="place" id="place" required>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button class="btn btn-dark" type="submit">search</button>
+  </form>
+</div>
 <script src="js/search.js"></script>
