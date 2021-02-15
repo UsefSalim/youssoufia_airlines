@@ -14,7 +14,7 @@ exports.pageAccueil = (req, res) => {
 */
 exports.searchOffres = async (req, res) => {
   // console.log(req.body);
-  const { date_d, date_r, air_d, air_a } = req.body;
+  const { date_d, date_r, air_d, air_a, place } = req.body;
   try {
     const result = await offre.findAll({
       where: {
@@ -24,6 +24,8 @@ exports.searchOffres = async (req, res) => {
         aeroport_arriver: air_a,
       },
     });
+    req.session.nPlace = place;
+    req.session.save();
     if (result) {
       res.render('offre', { offre: result });
     }
@@ -54,7 +56,26 @@ exports.validation = (req, res) => {
   res.render('validation', {
     user: req.session.user || '',
     offre: req.session.offre || '',
+    nplace: req.session.nPlace || '',
   });
+};
+exports.payment = async (req, res) => {
+  try {
+    const getOffre = await offre.findOne({
+      where: { id: req.session.offre.id },
+    });
+    getOffre && console.log(getOffre);
+    const newNumberPlace = getOffre.place - req.session.nPlace;
+    const offreUpdate = await offre.update(
+      { place: newNumberPlace },
+      { where: { id: req.session.offre.id } }
+    );
+    if (offreUpdate) {
+      res.render('index', { message: 'votre offre est bien valider' });
+    }
+  } catch (error) {
+    res.render('404');
+  }
 };
 const parseDate = (date) => {
   const words = date.split('-');

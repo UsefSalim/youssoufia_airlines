@@ -19,9 +19,8 @@ const aeroport = sequelize.define(
   }
 );
 
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log(`Database & tables created!`);
-//   });
+// sequelize.sync({ force: true }).then(() => {
+//   console.log(`Database & tables created!`);
+// });
 
 module.exports = aeroport;

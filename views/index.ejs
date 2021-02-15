@@ -2,11 +2,9 @@
 <a href="login" class="btn btn-secondary btn-block">Login</a>
 <a href="logout" class="btn btn-secondary btn-block">logout</a>
 <h1>Page D'accueil</h1>
-<% if (name !== '') { %>
-<h2><%= name %></h2>
-<% } %>
+
 <form action="/offers" method="POST">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
   <div class="container">
     <input class="search-input" name="air_d" type="text" placeholder="aeroport depart" required />
     <div class="suggestions">
@@ -19,6 +17,8 @@
   </div>
   <input type="date" id="start" name="date_d" required>
   <input type="date" id="start" name="date_r" required>
+  <input type="number" name="place" id="place">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <button type="submit">search</button>
 </form>
 

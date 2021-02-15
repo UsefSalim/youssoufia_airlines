@@ -8,7 +8,10 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+// const fs = require('fs');
 const Client = require('./models/client');
+// const aeroport = require('./models/aeroport');
+// const Offre = require('./models/offre.model');
 
 const app = express();
 
@@ -30,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // morgan
-process.env.NODE_ENV === '' && app.use(morgan('tiny'));
+process.env.NODE_ENV === 'developpement' && app.use(morgan('tiny'));
 
 app.use(
   session({

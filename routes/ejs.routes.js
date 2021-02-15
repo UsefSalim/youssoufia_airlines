@@ -8,6 +8,7 @@ const {
   searchOffres,
   singleoffre,
   validation,
+  payment,
 } = require('../controllers/ejs.controllers');
 
 /* ! @Route  : GET => /
@@ -33,5 +34,11 @@ router.get('/offre/:id', singleoffre);
      @Access : private
 */
 router.get('/validation', isAuth, validation);
+
+/* ! @Route  : GET => /payment
+     Desc    : render offre + user informations
+     @Access : private
+*/
+router.get('/payment', isAuth, payment);
 
 module.exports = router;

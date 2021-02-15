@@ -13,6 +13,14 @@ const offre = sequelize.define(
       filed: 'Prix',
       type: Sequelize.INTEGER,
     },
+    place: {
+      filed: 'Place',
+      type: Sequelize.INTEGER,
+    },
+    airline: {
+      filed: 'Airline',
+      type: Sequelize.STRING,
+    },
     date_depart: {
       filed: 'DateDepart',
       type: Sequelize.STRING,
@@ -35,9 +43,8 @@ const offre = sequelize.define(
   }
 );
 
-// sequelize.sync({ force: true })
-//   .then(() => {
-//     console.log(`Database & tables created!`);
-//   });
+// sequelize.sync({ force: true }).then(() => {
+//   console.log(`Database & tables created!`);
+// });
 
 module.exports = offre;
